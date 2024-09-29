@@ -1,0 +1,18 @@
+<a class="product-card" (click)="goToProductDetails()">
+  <div class="card-img">
+    <img src="{{ productData.url[0] }}" alt="Product Image" />
+  </div>
+  <div class="separator"></div>
+  <div class="card-body">
+    <h5 class="card-title">{{ productData.title }}</h5>
+    <p class="card-price">{{ productData.price }} $</p>
+    <p class="card-description">
+      Shipping:
+      {{
+        !productData.shippingCost
+          ? "Free shipping for your location"
+          : productData.shippingCost + " £"
+      }}
+    </p>
+  </div>
+</a>

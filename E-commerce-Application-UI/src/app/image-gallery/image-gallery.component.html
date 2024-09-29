@@ -1,0 +1,23 @@
+<div class="gallery-container">
+  <!-- Secondary Images List -->
+  <div class="secondary-images">
+    <img
+      *ngFor="let img of imageUrls; let i = index"
+      [src]="img"
+      (click)="selectImage(i)"
+      [class.selected]="selectedIndex === i"
+      class="secondary-image"
+      alt="Secondary Image"
+    />
+  </div>
+
+  <!-- Main Image with smooth transition -->
+  <div class="main-image">
+    <img
+      [src]="imageUrls[selectedIndex]"
+      alt="Main Image"
+      class="main-image-view"
+      [class.fade]="fade"
+    />
+  </div>
+</div>

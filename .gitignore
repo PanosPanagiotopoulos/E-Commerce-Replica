@@ -1,0 +1,144 @@
+# ========================
+# Global Ignore Patterns
+# ========================
+# Ignore Visual Studio temporary files, build results, and caches
+.vs/
+
+
+# Ignore all .env files
+*.env
+
+# Ignore all .txt files
+*.txt
+
+# Ignore configuration files (common patterns)
+*config.*
+*.*settings*
+*.config
+*.conf
+*.cfg
+*.ini
+*.json
+*.xml
+*.yml
+*.yaml
+*.csproj.user
+*.sln.docstates
+*.csproj
+
+# ========================
+# Angular Project Ignore
+# ========================
+
+# Angular build and dependency folders
+/node_modules/
+/dist/
+/tmp/
+/out-tsc/
+/coverage/
+/build/
+
+# Angular configuration files
+.angular
+.angular-cli.json
+karma.conf.js
+protractor.conf.js
+tsconfig.json
+tsconfig.app.json
+tsconfig.spec.json
+tslint.json
+package.json
+package-lock.json
+yarn.lock
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE and Editor settings
+/.idea/
+/.vscode/
+/*.sublime-project
+/*.sublime-workspace
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
+
+# ========================
+# .NET Core API Project Ignore
+# ========================
+
+# Build Folders
+/bin/
+//obj/
+
+# Visual Studio files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code settings
+/.vscode/
+
+# Resharper settings
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# NuGet packages
+*.nupkg
+/packages
+*.snupkg
+
+# Dotnet specific
+*.swp
+*.pidb
+*.log
+*.svclog
+*.cache
+*.mdb
+*.opendb
+*.pdb
+
+# Configuration files
+appsettings.json
+appsettings.*.json
+launchSettings.json
+*.csproj
+*.props
+*.targets
+
+# IIS Express settings
+/.vs/
+
+# Local History
+.localhistory/
+
+# Logs
+logs/
+*.log
+
+# ========================
+# Exclude All Other Configuration Files
+# ========================
+
+# Any other common configuration files
+*.config
+*.conf
+*.cfg
+*.ini
+*.json
+*.xml
+*.yaml
+*.yml
+
+# ========================
+# Notes
+# ========================
+
+# The above patterns are designed to ensure that no sensitive data or configuration files are committed to the repository.
+# Be cautious when excluding files that are necessary for building or running your application.
+# Ensure that any required configuration files are either safely managed outside of version control or have example templates provided.
+

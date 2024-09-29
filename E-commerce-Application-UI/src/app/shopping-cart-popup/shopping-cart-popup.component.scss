@@ -1,0 +1,204 @@
+.shopping-cart-popup {
+  position: absolute;
+  right: 135px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 12px 24px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  width: 350px;
+  max-height: 500px;
+  z-index: 1000;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+
+  &.fade-in {
+    animation: fadeInAnimation 0.3s ease-in forwards;
+  }
+
+  @keyframes fadeInAnimation {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 19px;
+    background-color: #ffffff;
+    color: #333;
+    font-weight: 600;
+    margin-top: 15px;
+
+    h3 {
+      margin: 0; /* Ensure the title has no margin, keeping it aligned */
+      font-size: 1.2rem; /* Adjust title size to the original */
+    }
+
+    .close-button {
+      font-size: 1.7rem;
+      color: #333;
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding: 0;
+      margin-top: 4px;
+      line-height: 0.5;
+      transition: transform 0.3s ease;
+      margin-right: 10px;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  .cart-items {
+    flex-grow: 1;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 15px;
+    background-color: #ffffff;
+
+    .cart-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e5e5e5;
+      position: relative; /* Ensure the delete button is positioned relative to this container */
+
+      .delete-button {
+        position: absolute;
+        top: 3.5px;
+        right: 4px;
+        background-color: transparent; /* Transparent background */
+        border: none; /* Remove border */
+        cursor: pointer;
+        font-size: 0.85rem;
+        color: #888; /* Change icon color */
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #ff0000; /* Red color on hover */
+        }
+
+        i {
+          pointer-events: none; /* Ensure the icon itself doesn't interfere with the button click */
+        }
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+
+      .item-icon {
+        width: 50px;
+        height: 50px;
+        margin-right: 15px;
+        flex-shrink: 0;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 5px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+      }
+
+      .item-details {
+        flex-grow: 1;
+        max-width: calc(100% - 70px);
+        overflow: hidden;
+
+        p.item-title {
+          font-weight: bold;
+          font-size: 1rem;
+          margin-bottom: 8px;
+          color: #333;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+          white-space: normal;
+          margin: 0;
+          line-height: 1.2;
+        }
+
+        .item-price {
+          margin-top: 7px;
+        }
+
+        .item-price,
+        .item-shipping {
+          font-size: 0.9rem;
+          color: #555;
+          margin-bottom: 8px;
+        }
+      }
+
+      .item-quantity {
+        font-weight: bold;
+        color: #333;
+        margin-right: 7px;
+        align-self: center;
+      }
+    }
+  }
+
+  .cart-total {
+    padding: 15px;
+    background-color: #f1f1f1;
+    border-top: 1px solid #ddd;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    border-radius: 8px;
+    margin-top: 5px;
+  }
+
+  .cart-checkout {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+
+    .checkout-button {
+      width: 100%;
+      padding: 12px;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s, transform 0.3s;
+
+      &:hover {
+        background-color: #218838;
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .empty-cart-message {
+    font-size: 1.2rem;
+    color: #999;
+    padding: 45px;
+    white-space: nowrap;
+  }
+
+  /* Media query for mobile screens */
+  @media (max-width: 768px) {
+    right: auto; /* Remove right alignment */
+    right: 13px; /* Align popup with the left edge */
+    width: 80%; /* Make the popup responsive */
+    margin: 0 auto; /* Center the popup under the button */
+  }
+}

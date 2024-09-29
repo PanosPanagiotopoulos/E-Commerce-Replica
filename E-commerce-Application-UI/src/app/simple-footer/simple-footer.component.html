@@ -1,0 +1,52 @@
+<!-- Footer section of the webpage -->
+<footer>
+  <!-- Top section of the footer containing logo and links -->
+  <section class="top">
+    <!-- Company logo image -->
+    <img src="../../assets/logo.png" alt="Logo" class="logo" />
+
+    <!-- Container for various link sections -->
+    <div class="links">
+      <!-- First column of links: Learn more -->
+      <div class="links-column">
+        <h2>Learn more</h2>
+        <a [routerLink]="[]" href="#">About us</a>
+        <a [routerLink]="[]" href="#">Testimonials</a>
+        <a [routerLink]="[]" href="#">Contact</a>
+      </div>
+
+      <!-- Second column of links: Social Media -->
+      <div class="links-column">
+        <h2>Social Media</h2>
+        <p>
+          Follow me on social media to get the latest <br />
+          awesome reels and posts.
+        </p>
+        <!-- Social media icons and links -->
+        <div class="socials">
+          <a [routerLink]="[]" href="#">
+            <img src="../../assets/facebook-logo.png" alt="Instagram Logo" />
+          </a>
+          <a [routerLink]="[]" href="#">
+            <img src="../../assets/instagram-logo_.png" alt="TikTok Logo" />
+          </a>
+          <a [routerLink]="[]" href="#">
+            <img src="../../assets/x-logo.png" alt="LinkedIn Logo" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom section of the footer containing copyright and legal links -->
+  <section class="bottom">
+    <!-- Copyright information -->
+    <p class="copyright">© 2024 All rights reserved</p>
+    <!-- Legal links for terms and privacy policy -->
+    <div class="legal">
+      <a [routerLink]="[]" href="#">Terms</a>
+      <span>|</span>
+      <a [routerLink]="[]" href="#">Privacy</a>
+    </div>
+  </section>
+</footer>

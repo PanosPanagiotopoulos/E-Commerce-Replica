@@ -1,0 +1,27 @@
+<div class="navigation-search">
+  <a class="brand-name" href="/">Shopily</a>
+  <input
+    type="text"
+    class="search-bar"
+    placeholder="Search"
+    [(ngModel)]="searchQuery"
+  />
+  <button class="search-button">
+    <img
+      src="assets/search-icon.png"
+      alt="Search Icon"
+      (click)="searchProducts()"
+    />
+  </button>
+  <div class="cart-container">
+    <button
+      id="cart-button-nav"
+      class="cart-button"
+      (click)="toggleCartPopup()"
+      (mouseover)="showCartPopup()"
+      (mouseleave)="hideCartPopup()"
+    >
+      <img src="assets/shopping-cart.png" alt="" />
+    </button>
+  </div>
+</div>

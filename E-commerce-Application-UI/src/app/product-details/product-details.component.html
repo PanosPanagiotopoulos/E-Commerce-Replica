@@ -1,0 +1,46 @@
+<div class="product-details-container">
+  <!-- Product Image Gallery on the left -->
+  <div class="image-gallery-container">
+    <e-com-app-image-gallery
+      [imageUrls]="product!.url"
+    ></e-com-app-image-gallery>
+  </div>
+
+  <!-- Product Info on the right -->
+  <div class="product-info-container">
+    <div class="category-title">
+      <span class="category">{{ product!.category }}</span>
+    </div>
+
+    <h1 class="product-title">{{ product!.title }}</h1>
+    <p class="product-description">{{ product!.description }}</p>
+
+    <p class="product-price">
+      {{ product!.price + " €" }}
+    </p>
+
+    <p class="shipping-info">
+      {{
+        product!.shippingCost > 0
+          ? "Shipping Cost : " + product!.shippingCost + " €"
+          : "Free shipping for your location"
+      }}
+    </p>
+
+    <button class="add-to-cart-button" (click)="addToCart(product!)">
+      Add to Cart
+    </button>
+    <div class="payment-methods">
+      <div class="payment-icons">
+        <span *ngFor="let method of product?.paymentMethods">
+          <i
+            [ngClass]="getPaymentIcon(method)"
+            aria-hidden="true"
+            title="{{ method | titlecase }}"
+          ></i>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<e-com-app-simple-footer></e-com-app-simple-footer>

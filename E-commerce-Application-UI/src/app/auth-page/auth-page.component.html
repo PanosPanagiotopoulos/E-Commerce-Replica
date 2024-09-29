@@ -1,0 +1,95 @@
+<div class="container">
+  <!-- Hidden checkbox to toggle between login and register forms -->
+  <input type="checkbox" id="signup_toggle" />
+
+  <form class="form">
+    <div class="form_front">
+      <!-- Section for the Login form -->
+      <div class="form_details">Login</div>
+
+      <!-- Email input field for login -->
+      <input
+        placeholder="Email"
+        class="input"
+        type="text"
+        [(ngModel)]="user.email"
+        [ngModelOptions]="{ standalone: true }"
+      />
+
+      <!-- Password input field for login -->
+      <input
+        placeholder="Password"
+        class="input"
+        type="password"
+        [(ngModel)]="user.password"
+        [ngModelOptions]="{ standalone: true }"
+      />
+
+      <!-- Login button to initiate login method -->
+      <button class="btn" (click)="login()">Login</button>
+
+      <!-- Switch link to toggle to the Register form -->
+      <span class="switch">
+        Don't have an account?
+        <label class="signup_tog" for="signup_toggle"> Sign Up </label>
+      </span>
+    </div>
+
+    <div class="form_back">
+      <!-- Section for the Register form -->
+      <div class="form_details">Register</div>
+
+      <!-- Fullname input field for registration -->
+      <input
+        placeholder="Fullname"
+        class="input"
+        type="text"
+        [(ngModel)]="user.fullname"
+        [ngModelOptions]="{ standalone: true }"
+      />
+
+      <!-- Email input field for registration -->
+      <input
+        placeholder="Email"
+        class="input"
+        type="text"
+        [(ngModel)]="user.email"
+        [ngModelOptions]="{ standalone: true }"
+      />
+
+      <!-- Password input field for registration -->
+      <input
+        placeholder="Password"
+        class="input"
+        type="password"
+        [(ngModel)]="user.password"
+        [ngModelOptions]="{ standalone: true }"
+      />
+
+      <!-- Confirm password input field for registration -->
+      <input
+        placeholder="Confirm Password"
+        class="input"
+        type="password"
+        [(ngModel)]="confirmPassword"
+        [ngModelOptions]="{ standalone: true }"
+      />
+
+      <!-- Register button to initiate register method -->
+      <button class="btn" (click)="register()">Register</button>
+
+      <!-- Switch link to toggle to the Login form -->
+      <span class="switch">
+        Already have an account?
+        <label class="signup_tog" for="signup_toggle"> Sign In </label>
+      </span>
+    </div>
+  </form>
+
+  <!-- Popup component to display messages based on authentication results -->
+  <e-com-app-auth-result-popup
+    *ngIf="showPopup"
+    [message]="popupMessage"
+    [isSuccess]="isSuccess"
+  ></e-com-app-auth-result-popup>
+</div>

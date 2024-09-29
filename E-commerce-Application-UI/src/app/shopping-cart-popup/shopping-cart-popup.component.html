@@ -1,0 +1,61 @@
+<!-- Shopping cart popup container with dynamic classes and mouse event handlers -->
+<div
+  #cartPopup
+  class="shopping-cart-popup"
+  [ngClass]="animationClass"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+>
+  <!-- Header section of the shopping cart -->
+  <div class="cart-header">
+    <h3>Shopping Cart</h3>
+    <!-- Close button to hide the shopping cart -->
+    <button class="close-button" (click)="onMouseLeave()">×</button>
+  </div>
+
+  <!-- Container for cart items -->
+  <div class="cart-items">
+    <!-- Display a message if the cart is empty -->
+    <div
+      *ngIf="!cartItems || cartItems.length === 0"
+      class="empty-cart-message"
+    >
+      Nothing to checkout here ...
+    </div>
+
+    <!-- Display each cart item if available -->
+    <div class="cart-item" *ngFor="let item of cartItems">
+      <!-- Item icon with product image -->
+      <div class="item-icon">
+        <img [src]="item.product.url[0]" alt="{{ item.product.title }}" />
+      </div>
+
+      <!-- Details of the cart item -->
+      <div class="item-details">
+        <!-- Delete button to remove the item from the cart -->
+        <button class="delete-button" (click)="removeItem(item)">
+          <i class="fas fa-trash"></i>
+        </button>
+        <!-- Title of the product -->
+        <p class="item-title">{{ item.product.title }}</p>
+        <!-- Price of the product -->
+        <div class="item-price">{{ item.product.price | currency }}</div>
+        <!-- Shipping cost of the product -->
+        <div class="item-shipping">
+          Shipping: {{ item.product.shippingCost | currency }}
+        </div>
+      </div>
+
+      <!-- Quantity of the item in the cart -->
+      <div class="item-quantity">x{{ item.quantity }}</div>
+    </div>
+  </div>
+
+  <!-- Total amount and checkout button -->
+  <div class="cart-total">Total: {{ totalAmount | currency }}</div>
+  <div class="cart-checkout">
+    <button class="checkout-button" (click)="goToCheckout()">
+      Go to Checkout
+    </button>
+  </div>
+</div>

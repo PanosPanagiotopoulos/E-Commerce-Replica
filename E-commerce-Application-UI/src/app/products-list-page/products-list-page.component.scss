@@ -1,0 +1,131 @@
+.filters-title {
+  padding-top: 70px;
+  padding-left: 15%;
+
+  h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #343a40;
+  }
+
+  @media (max-width: 768px) {
+    padding-top: 40px;
+    padding-left: 7%;
+
+    h2 {
+      font-size: 0.8rem;
+      font-weight: 550;
+    }
+  }
+}
+
+.categories-scroll {
+  width: 81%;
+  display: flex;
+  overflow-x: auto;
+  padding: 14px;
+  margin-bottom: 20px;
+  background-color: #f8f9fa;
+  border-radius: 15px;
+  align-items: center;
+  margin-left: 15%;
+  margin-right: 15%;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 0;
+
+  /* Scrollbar styling */
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #818181;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+  }
+
+  .category-button {
+    flex: 0 0 auto;
+    margin-left: 18px;
+    margin-right: 10px;
+    padding: 8px 15px;
+    font-size: 1.01rem;
+    color: #343a40;
+    background-color: #fff;
+    border: 2px solid #ced4da;
+    border-radius: 17px;
+    cursor: pointer;
+    z-index: 0;
+    transition: all 0.3s ease; /* Smooth transition for all properties */
+
+    &:hover {
+      background-color: #818181;
+      color: #fff;
+      transform: translateY(-3px);
+    }
+
+    &:last-child {
+      margin-right: 13px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 86%;
+    padding: 8px;
+    margin-bottom: 15px;
+    margin-left: 5%;
+    margin-right: 5%;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .category-button {
+      margin-left: 10px;
+      margin-right: 5px;
+      padding: 15px;
+      font-size: 0.9rem;
+      border-radius: 12px;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+.products-list {
+  margin-top: 40px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(
+    4,
+    minmax(200px, 1fr)
+  ); /* 4 columns for larger screens */
+  gap: 27px;
+  justify-content: start;
+  padding-left: 15%;
+  z-index: 0;
+  opacity: 0; /* Initially hidden */
+  transform: translateY(20px); /* Start slightly below the original position */
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+
+  &.fade-in {
+    opacity: 1; /* Fade in when the fadeIn property is true */
+    transform: translateY(0); /* Slide to the original position */
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(
+      1,
+      minmax(200px, 1fr)
+    ); /* 1 column for mobile screens */
+    gap: 15px;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}

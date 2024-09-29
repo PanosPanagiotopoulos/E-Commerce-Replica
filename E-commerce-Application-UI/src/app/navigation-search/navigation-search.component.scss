@@ -1,0 +1,168 @@
+.navigation-search {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 5px;
+  background-color: transparent;
+  position: relative;
+  transform: translateX(-7%);
+  opacity: 0;
+  animation: slideIn 0.9s ease-out forwards;
+  transition: opacity 0.8s ease-in;
+
+  @keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .brand-name {
+    font-family: "Arial", sans-serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1);
+    color: #343a40;
+    text-decoration: none;
+    margin-left: 8.7rem;
+  }
+
+  .search-bar {
+    width: 485px;
+    padding: 8px 12px;
+    font-size: 1.1rem;
+    border: 2px solid #ced4da;
+    border-radius: 10px;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    transform-origin: center;
+    transition: all 0.3s ease;
+
+    &::placeholder {
+      transition: opacity 0.3s ease;
+    }
+
+    &:focus::placeholder {
+      opacity: 0;
+    }
+
+    &:focus {
+      transform: scale(1.05) translateX(-50%);
+      box-shadow: 6px 6px 10px rgb(238, 238, 238),
+        1px 1px 10px rgba(255, 255, 255, 0.875),
+        inset 2px 2px 10px rgb(254, 254, 254),
+        inset -1px -1px 5px rgba(255, 255, 255, 0.736);
+    }
+  }
+
+  .search-button,
+  .cart-button {
+    background-color: transparent;
+    cursor: pointer;
+    padding: 10px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-color: transparent;
+  }
+
+  .search-button {
+    position: absolute;
+    right: 22rem;
+  }
+
+  .cart-container {
+    position: absolute;
+    right: 16rem;
+  }
+
+  .cart-button {
+    width: 120px;
+    height: 120px;
+    transition: transform 0.75s ease;
+    background-color: transparent;
+
+    &:hover {
+      transform: translateY(-6px); /* Move the button up on hover */
+    }
+  }
+
+  .search-button {
+    img {
+      transition: transform 0.3s ease;
+    }
+
+    &:hover img {
+      transform: scale(0.8);
+    }
+  }
+
+  .search-button img,
+  .cart-button img {
+    max-width: 70%;
+    max-height: 70%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    background-color: transparent;
+    mix-blend-mode: multiply;
+  }
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+
+    .brand-name {
+      order: 1;
+      margin: 0;
+      position: absolute;
+      top: 20px;
+      left: 26px;
+      font-size: 2rem;
+    }
+
+    .cart-container {
+      order: 2;
+      margin: 0;
+      position: absolute;
+      top: -17px;
+      right: -10px;
+      background-color: transparent;
+    }
+
+    .search-bar {
+      order: 3;
+      flex-grow: 1;
+      width: 70%;
+      margin: 0;
+      margin-left: 8px;
+      margin-top: 95px;
+      position: relative;
+      left: 41%;
+      transform: translateX(-50%);
+      transform-origin: center;
+
+      &:focus {
+        transform: scale(1.02) translateX(-49.2%);
+        box-shadow: 6px 6px 10px rgb(238, 238, 238),
+          1px 1px 10px rgba(255, 255, 255, 0.875),
+          inset 2px 2px 10px rgb(254, 254, 254),
+          inset -1px -1px 5px rgba(255, 255, 255, 0.736);
+      }
+    }
+
+    .search-button {
+      order: 4;
+      margin-top: 95px;
+      position: relative;
+      left: 0;
+      transform: translateX(0);
+      width: 71px;
+      height: 71px;
+    }
+  }
+}

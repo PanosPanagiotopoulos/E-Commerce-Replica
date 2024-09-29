@@ -1,0 +1,8 @@
+<div class="auth-prompt-pos">
+  <e-com-app-auth-prompt></e-com-app-auth-prompt>
+</div>
+<e-com-app-navigation-search></e-com-app-navigation-search>
+<e-com-app-shopping-cart-popup
+  *ngIf="isCartVisible"
+></e-com-app-shopping-cart-popup>
+<router-outlet></router-outlet>

@@ -1,0 +1,61 @@
+# Compiled output
+/dist
+/tmp
+/out-tsc
+
+# Node modules
+/node_modules
+
+# Angular build and cache files
+/.angular/cache
+/.angular
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+*.env
+
+# IDE files
+/.idea
+/.vscode
+/.project
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
+
+# Typescript compiled output
+*.js
+*.d.ts
+*.js.map
+
+# Optional npm cache directory
+.npm
+
+# Angular specific files
+.angular-cli.json
+.angular/*
+
+# Generated Coverage reports
+/coverage
+
+# Miscellaneous
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log*
+yarn-error.log*
+
+# Compiled folder for Typescript
+/compiled
+
+# Exclude txt files
+*.txt

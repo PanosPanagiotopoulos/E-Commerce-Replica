@@ -1,0 +1,32 @@
+:host {
+  display: block; /* Ensure the component stays within the normal flow */
+  margin-left: auto; /* Push the Auth Prompt to the far right */
+  z-index: 1;
+}
+
+.auth-prompt {
+  background-color: transparent;
+  color: black;
+  padding: 5px 10px;
+  border-bottom: 1px solid black;
+  cursor: pointer;
+  font-family: "Arial", sans-serif;
+  font-size: 0.9rem;
+  text-align: center;
+  width: 80px;
+  height: 40px;
+  line-height: 40px;
+  transition: box-shadow 0.6s ease, transform 0.6s ease;
+  z-index: 1;
+
+  &:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2), 0px 8px 16px rgba(0, 0, 0, 0.2),
+      0px 16px 32px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+  }
+
+  &:focus,
+  &:active {
+    -webkit-tap-highlight-color: transparent;
+  }
+}

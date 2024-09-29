@@ -1,0 +1,115 @@
+.gallery-container {
+  display: flex;
+  align-items: flex-start;
+  font-size: 2rem;
+
+  .secondary-images {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+  }
+
+  .secondary-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+    outline: none; /* This removes the default blue outline when clicked */
+
+    /* Remove focus and active styles */
+    &:focus,
+    &:active {
+      outline: none; /* Remove focus outline */
+      box-shadow: none; /* Remove any box shadow that might appear */
+      -webkit-tap-highlight-color: transparent; /* Remove the tap highlight on mobile */
+    }
+
+    /* Active image styling */
+    &.selected {
+      border-color: darkgray; /* Highlight the active image with dark grey */
+      filter: brightness(85%);
+      outline: none; /* This removes the default blue outline when clicked */
+    }
+  }
+
+  .main-image {
+    flex-grow: 1;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  .main-image:hover {
+    transform: scale(1.05);
+  }
+
+  .main-image-view {
+    width: 450px;
+    height: 450px;
+    object-fit: cover;
+    transition: opacity 0.25s ease-in-out, transform 0.15s ease-in-out; /* Smooth transition */
+  }
+
+  .fade {
+    opacity: 0; /* Fade-out effect */
+    transform: scale(0.95); /* Slightly scale down on fade-out */
+  }
+
+  .main-image-view:not(.fade) {
+    opacity: 1; /* Fade-in effect */
+    transform: scale(1); /* Restore scale */
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column; /* Stack the images vertically on mobile */
+
+    .main-image {
+      display: grid; /* Center the image in the grid container */
+      place-items: center; /* This centers the image horizontally and vertically */
+      order: 1;
+      width: 100%; /* Full width for the container */
+      margin-bottom: 25px;
+      margin-left: 25px;
+    }
+
+    .main-image-view {
+      width: calc(100% + 100px);
+      height: auto; /* Maintain aspect ratio */
+      display: block;
+      margin: 0 auto; /* Center the image horizontally */
+      max-width: 100%; /* Prevent overflow */
+    }
+
+    .secondary-images {
+      order: 2; /* Ensure the secondary images come after the main image */
+      flex-direction: row; /* Display secondary images in a row on mobile */
+      gap: 15px; /* Add some spacing between images */
+      justify-content: center; /* Center the images below the main image */
+      overflow-x: auto; /* Allow horizontal scrolling if too many images */
+      width: 100%; /* Ensure the container takes full width on mobile */
+      margin-left: 10px;
+
+      /* Remove blue effect on mobile */
+      &:hover,
+      &.selected {
+        border-color: transparent; /* No border color change when clicked or hovered */
+        outline: none; /* This removes the default blue outline when clicked */
+      }
+
+      img {
+        width: 75px; /* Adjust the size of secondary images for mobile */
+        height: auto;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: border-color 0.3s ease;
+
+        /* Remove blue effect on mobile */
+        &:hover,
+        &.selected {
+          border-color: transparent; /* No border color change when clicked or hovered */
+        }
+      }
+    }
+  }
+}

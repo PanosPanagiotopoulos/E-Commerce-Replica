@@ -1,0 +1,162 @@
+.product-details-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: transparent;
+  border-radius: 15px;
+  margin-top: 85px;
+  margin-right: 55px;
+  max-width: 100%; /* Ensure the container does not exceed 100% of the screen width */
+  overflow-x: hidden; /* Hide any horizontal overflow */
+
+  .image-gallery-container {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 20px; /* Adjust padding */
+    max-width: 50%; /* Reduce width slightly for no horizontal scroll */
+
+    img {
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+      width: 100%;
+      max-width: 350px; /* Reduce the size of the main image */
+      height: 350px; /* Ensure height matches width */
+    }
+
+    img:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  .product-info-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    max-width: 40%;
+  }
+
+  .category-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #999;
+    margin-bottom: 8px;
+  }
+
+  .product-title {
+    font-size: 2rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+
+  .product-price {
+    font-size: 1.5rem;
+    color: #28a745;
+    font-weight: bold;
+    margin-bottom: 15px;
+    transition: color 0.3s ease;
+  }
+
+  .product-price:hover {
+    color: #1d6f42;
+  }
+
+  .shipping-info {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 20px;
+  }
+
+  .product-description {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+
+  .add-to-cart-button {
+    padding: 15px;
+    margin-top: 10px;
+    background-color: #d3d3d3;
+    color: #333;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .add-to-cart-button:hover {
+    background-color: #a9a9a9;
+    transform: scale(1.05);
+  }
+
+  .payment-methods {
+    font-size: 1.001rem;
+    color: #333;
+    margin-top: 35px;
+
+    .payment-icons {
+      display: flex;
+      gap: 25px;
+
+      .fa-money-bill-wave {
+        color: green; /* Cash icon is green */
+      }
+
+      .fa-cc-visa {
+        color: yellow; /* Visa icon is yellow */
+      }
+
+      .fa-paypal {
+        color: #003087; /* Standard PayPal blue */
+      }
+
+      i {
+        font-size: 1.6rem;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    max-width: 100%; /* Make sure it's 100% width on mobile */
+    overflow-x: hidden; /* Prevent any horizontal scrolling */
+
+    .image-gallery-container {
+      padding-right: 0;
+      max-width: 100%; /* Full width on mobile */
+      margin-bottom: 40px;
+
+      img {
+        max-width: 300px; /* Smaller image size for mobile */
+        height: 300px;
+      }
+    }
+
+    .product-info-container {
+      max-width: 100%;
+    }
+
+    .product-title {
+      font-size: 1.5rem;
+    }
+
+    .product-price {
+      font-size: 1.3rem;
+    }
+
+    .add-to-cart-button {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .payment-methods {
+      margin-top: 20px;
+    }
+  }
+}

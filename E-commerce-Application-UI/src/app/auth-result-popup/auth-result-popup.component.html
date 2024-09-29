@@ -1,0 +1,15 @@
+<div class="notification" [ngClass]="{ success: isSuccess, error: !isSuccess }">
+  <div class="notification_body">
+    <img
+      [src]="
+        isSuccess
+          ? '../../assets/checkmark-icon.png'
+          : '../../assets/error-icon.png'
+      "
+      alt="Status"
+      class="notification_icon"
+    />
+    {{ message }}
+  </div>
+  <div class="notification_progress"></div>
+</div>

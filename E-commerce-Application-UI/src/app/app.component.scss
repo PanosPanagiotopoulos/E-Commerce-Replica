@@ -1,0 +1,10 @@
+.auth-prompt-pos {
+  display: flex;
+  justify-content: space-between; /* Space out navigation and auth prompt */
+  align-items: center; /* Align items vertically */
+  padding: 30px 25px; /* Optional: adjust padding based on your layout */
+
+  @media (max-width: 768px) {
+    padding: 30px 12px; /* Optional: adjust padding based on your layout */
+  }
+}
