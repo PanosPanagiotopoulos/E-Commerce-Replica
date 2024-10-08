@@ -17,12 +17,20 @@ builder.Services.AddDbContext<DataContext>(options =>
 });
 builder.Services.AddTransient<Seed>();
 // Register repositories and other services
+
+// * Register AutoMapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICustomMapper, CustomMapper>();
 
-// Register custom mapping service
+// Register JWT service
 builder.Services.AddSingleton<ICustomMapper, CustomMapper>();
 builder.Services.AddSingleton<JwtService>();
+
+// Add Cache availability of the API
+builder.Services.AddMemoryCache();
 
 // Adding JWT Authentication
 builder.Services.AddAuthentication(options =>

@@ -58,35 +58,27 @@ namespace E_Commerce_Application_API.Repositories
             // Get the user's shopping cart
             int userCartId = await GetUsersCartId(userId);
 
-            // Get product IDs and quantities from CartProducts
             var cartProducts = await Context.CartProducts
-                .Where(cp => cp.CartId == userCartId)
-                .Select(cp => new { cp.ProductId, cp.Quantity })
-                .ToListAsync();
-
-            // Return empty shopping cart list if there are no products inside
-            if (!cartProducts.Any())
+            .Where(cp => cp.CartId == userCartId)
+            .Include(cp => cp.Product)
+            .ThenInclude(p => p.Images)
+            .Include(cp => cp.Product)
+            .ThenInclude(p => p.PaymentMethods)
+            .ThenInclude(pm => pm.PaymentMethod)
+            .Select(cp => new CartItemDTO
             {
-                return new List<CartItemDTO>();
+                Product = CMapper.MapProductToProductDTO(cp.Product),
+                Quantity = cp.Quantity
+            })
+            .AsNoTracking() // Add AsNoTracking for better read-only performance
+            .ToListAsync();
+
+            if (cartProducts == null)
+            {
+                throw new InvalidDataException("Null reference for cart products found");
             }
 
-            // Extract product IDs
-            var productIds = cartProducts.Select(cp => cp.ProductId).Distinct();
-
-            // Use ProductRepository to get products including navigation properties
-            var products = await ProductRepository.GetProductsByIdList(productIds);
-
-            // Map products and quantities to CartItemDTOs
-            return cartProducts.Join(
-                products,
-                cp => cp.ProductId,
-                p => p.Id,
-                (cp, p) => new CartItemDTO
-                {
-                    Product = CMapper.MapProductToProductDTO(p),
-                    Quantity = cp.Quantity
-                })
-                .ToList();
+            return cartProducts;
         }
 
         public async Task<bool> AddProductToCart(int cartId, int productId)

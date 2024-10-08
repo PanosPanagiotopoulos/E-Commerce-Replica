@@ -59,25 +59,22 @@ namespace E_Commerce_Application_API.Controllers
                 // Return internal server error on any non checked exception
                 return RequestHandlerTool.HandleInternalServerError(e, "GET", "/api/Cart", "Error retrieving the user's id from authorisation");
             }
-            IEnumerable<CartItemDTO> cartItems = [];
             // Retrieve the user's cart data
             try
             {
-                cartItems = await CartRepository.GetUserCartData(userId);
+                return Ok(await CartRepository.GetUserCartData(userId));
+            }
+
+            catch (InvalidDataException ide)
+            {
+                return NotFound(ide.Message);
             }
             catch (Exception e)
             {
                 // Return internal server error on any non checked exception
-                return RequestHandlerTool.HandleInternalServerError(e, "GET", "/api/Cart", "Error finding the reference of the users cart");
+                return RequestHandlerTool.HandleInternalServerError(e, "GET", "/api/Cart");
             }
 
-            // If there was no cart data, return 404
-            if (cartItems == null)
-            {
-                return NotFound("Shopping cart data not found for the user");
-            }
-
-            return Ok(cartItems);
         }
 
         /// <summary>Adds to cart.</summary>
