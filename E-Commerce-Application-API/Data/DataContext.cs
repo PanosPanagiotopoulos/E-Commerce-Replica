@@ -35,6 +35,15 @@ namespace E_Commerce_Application_API.Data
         /// </param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Configure decimal precision for Price and ShippingCost fields
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Price)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Product>()
+                .Property(p => p.ShippingCost)
+                .HasColumnType("decimal(18,2)");
+
             // Configure one-to-one relationship between User and ShoppingCart
             modelBuilder.Entity<User>()
                 .HasOne(u => u.ShoppingCart)
@@ -68,6 +77,9 @@ namespace E_Commerce_Application_API.Data
                 .WithMany(cp => cp.CartProducts)
                 .HasForeignKey(cp => cp.ProductId);
             // End of Code for handling  many - many join table between Payment ShoppingCarts and Products //
+
+            base.OnModelCreating(modelBuilder);
+
         }
     }
 }

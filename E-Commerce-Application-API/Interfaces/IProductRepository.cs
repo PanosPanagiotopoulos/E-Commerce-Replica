@@ -41,16 +41,13 @@ namespace E_Commerce_Application_API.Interfaces
         /// <returns>True or false depending if it does or not</returns>
         Task<Boolean> ProductExists(int id);
 
-        /// <summary>Gets the products paged.</summary>
-        /// <param name="pageNumber">The current page number.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="sortBy">The sort parameter if requested.</param>
-        /// <param name="sortDirection">The sort direction to combine with the sorting parameter.</param>
-        /// <returns>
-        ///   The DTO of the products reuqested paged
-        ///   Some more pagination metadata for the client
-        ///   Like how many pages are left and the current page number
-        /// </returns>
+        /// <summary>
+        /// Retrieves paginated product data from the database with optional sorting and filtering.
+        /// </summary>
+        /// <param name="pageNumber">The current page number to retrieve.</param>
+        /// <param name="pageSize">The number of products per page.</param>
+        /// <param name="filters">Optional sorting and filtering parameters.</param>
+        /// <returns>Paged product data with pagination metadata.</returns>
         Task<PagedProductsResDTO> GetProductsPaged(
         int pageNumber = 1,
         int pageSize = 10,

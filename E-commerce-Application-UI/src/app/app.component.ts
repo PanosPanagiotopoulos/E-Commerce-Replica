@@ -9,11 +9,13 @@ import { AuthPromptComponent } from './auth-prompt/auth-prompt.component';
 import { ShoppingCartPopupComponent } from './shopping-cart-popup/shopping-cart-popup.component';
 import { CartVisibilityService } from '../services/cart-visibility-service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'e-com-app',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     RouterOutlet,
     NavigationSearchComponent,
     ProductsListPageComponent,

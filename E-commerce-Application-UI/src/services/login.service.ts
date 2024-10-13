@@ -40,7 +40,7 @@ export class LoginService {
   ): Promise<AxiosResponse<AuthToken>> {
     // API call
     try {
-      const endpoint: string = `http://localhost:5000/auth/login`;
+      const endpoint: string = `/auth/login`;
       const body = {
         email,
         password,
@@ -64,21 +64,20 @@ export class LoginService {
             response.data
         );
 
-        const axiosError: AxiosError<AuthToken> = {
+        const axiosError: AxiosError = {
           name: 'AxiosError',
-          message: response.data.tokenID,
+          message: response.data.token,
           config: response.config,
           code: '' + response.status, // Optional, typically used for specific error codes like ECONNABORTED
           request: response.request,
           response,
-        } as AxiosError<AuthToken>;
+        } as AxiosError;
 
         throw axiosError;
       }
-
       return response;
     } catch (error) {
-      throw error as AxiosError<AuthToken>;
+      throw error as AxiosError;
     }
   }
 
@@ -90,10 +89,8 @@ export class LoginService {
   async register(user: User): Promise<AxiosResponse<AuthToken>> {
     // API call
     try {
-      const endpoint: string = `http://localhost:5000/auth/register`;
-      const body = {
-        user: user,
-      };
+      const endpoint: string = `/api/User`;
+      const body = user;
       // Define custom headers
       const headers = {
         'Content-Type': 'application/json',
@@ -105,29 +102,25 @@ export class LoginService {
       });
 
       if (!(response.status >= 200 && response.status < 300)) {
-        console.error(
-          'Error in registration\n' +
-            response.statusText +
-            '\nError Data : ' +
-            response.data
-        );
-
-        const axiosError: AxiosError<string> = {
+        const axiosError: AxiosError = {
           name: 'AxiosError',
-          message: response.data.message,
+          message: response.data,
           config: response.config,
           code: '' + response.status, // Optional, typically used for specific error codes like ECONNABORTED
           request: response.request,
           response,
-        } as AxiosError<string>;
+        } as AxiosError;
 
         throw axiosError;
       }
 
-      return await this.login(user.email, user.password);
+      return await this.login(user.email, user.password!);
     } catch (error) {
-      console.error('Error in registration\n' + error);
-      throw error as AxiosError;
+      console.log(
+        'Server Register Response Error:\n' + JSON.stringify(error, null, 2)
+      );
+      const axiosError: AxiosError = error as AxiosError;
+      throw axiosError;
     }
   }
   /**

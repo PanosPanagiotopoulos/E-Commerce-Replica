@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, DoCheck, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
@@ -15,16 +20,20 @@ import { AuthResultPopupComponent } from '../auth-result-popup/auth-result-popup
   templateUrl: './auth-page.component.html',
   styleUrl: './auth-page.component.scss',
 })
-export class AuthPageComponent implements OnInit {
+export class AuthPageComponent implements OnInit, DoCheck {
   // User object to hold form data
   user: User = {
-    fullname: '',
+    firstname: '',
+    lastname: '',
     email: '',
     password: '',
+    phonenumber: '',
   };
 
   // Property to confirm the user's password
   confirmPassword: string = '';
+  // Property that checks if the password and confirm password are the same
+  passwordMismatch: boolean = false;
   // Message to be displayed in popup
   popupMessage: string = '';
   // Flag indicating if operation was successful or not
@@ -32,9 +41,26 @@ export class AuthPageComponent implements OnInit {
   // Flag to show/hide popup
   showPopup: boolean = false;
   // Interval time for popup visibility
-  private popUpInterval: number = 4000; // Milliseconds that interval appears
+  private popUpInterval: number = 2000; // Milliseconds that interval appears
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private fb: FormBuilder
+  ) {}
+
+  ngOnInit(): void {
+    document.body.classList.add('auth-page-active');
+  }
+
+  ngOnDestroy(): void {
+    document.body.classList.remove('auth-page-active');
+  }
+
+  // Implement ngDoCheck
+  ngDoCheck(): void {
+    this.checkPasswords();
+  }
 
   /**
    * Callback function for login button
@@ -45,20 +71,18 @@ export class AuthPageComponent implements OnInit {
     */
     try {
       this.showPopup = false;
-      // const loginResponse: AxiosResponse<AuthToken> =
-      //   await this.loginService.login(this.user.email, this.user.password);
+      const loginResponse: AxiosResponse<AuthToken> =
+        await this.loginService.login(this.user.email, this.user.password!);
       this.popupMessage = 'Successful login';
       this.isSuccess = true;
       this.showPopup = true;
       this.hidePopupAfterDelay();
 
-      // this.saveAuthToken(loginResponse.data);
+      this.saveAuthToken(loginResponse.data);
       setTimeout(() => {
         this.loginService.handleAuthTraceback();
       }, this.popUpInterval);
     } catch (error) {
-      const axiosError = error as AxiosError;
-      console.error(axiosError);
       this.popupMessage = 'Unsuccessful login';
       this.isSuccess = false;
       this.showPopup = true;
@@ -73,27 +97,30 @@ export class AuthPageComponent implements OnInit {
     /* TODO:
        Set animation loading till it loads and then stop it 
     */
-    try {
-      this.showPopup = false;
-      const registerResponse: AxiosResponse<AuthToken> =
-        await this.loginService.register(this.user);
-      this.saveAuthToken(registerResponse.data);
-      this.popupMessage = 'Successful registration';
-      this.isSuccess = true;
-      this.showPopup = true;
-      this.hidePopupAfterDelay();
+    // Do nothing if passwords mismatch
+    if (!this.passwordMismatch) {
+      try {
+        this.showPopup = false;
 
-      // this.saveAuthToken(registerResponse.data);
-      setTimeout(() => {
-        this.loginService.handleAuthTraceback();
-      }, this.popUpInterval);
-    } catch (error) {
-      const axiosError = error as AxiosError;
-      console.error(axiosError);
-      this.popupMessage = 'Unsuccessful registration';
-      this.isSuccess = false;
-      this.showPopup = true;
-      this.hidePopupAfterDelay();
+        const registerResponse: AxiosResponse<AuthToken> =
+          await this.loginService.register(this.user);
+        // Save the token after successfull registration and login
+        this.saveAuthToken(registerResponse.data);
+        this.popupMessage = 'Successful registration';
+        this.isSuccess = true;
+        this.showPopup = true;
+        this.hidePopupAfterDelay();
+        setTimeout(() => {
+          this.loginService.handleAuthTraceback();
+        }, this.popUpInterval);
+      } catch (error) {
+        const axiosError = error as AxiosError;
+        console.error(axiosError.message);
+        this.popupMessage = 'Unsuccessful registration';
+        this.isSuccess = false;
+        this.showPopup = true;
+        this.hidePopupAfterDelay();
+      }
     }
   }
 
@@ -110,15 +137,12 @@ export class AuthPageComponent implements OnInit {
    * Saves the authentication token in session storage
    * @param token - The authentication token to be saved
    */
-  saveAuthToken(token: AuthToken) {
-    sessionStorage.setItem('authToken', token.tokenID);
+  saveAuthToken(authData: AuthToken) {
+    sessionStorage.setItem('authToken', authData.token);
+    sessionStorage.setItem('role', authData.role);
   }
 
-  ngOnInit(): void {
-    document.body.classList.add('auth-page-active');
-  }
-
-  ngOnDestroy(): void {
-    document.body.classList.remove('auth-page-active');
+  checkPasswords() {
+    this.passwordMismatch = this.user.password !== this.confirmPassword;
   }
 }

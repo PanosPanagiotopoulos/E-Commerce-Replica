@@ -17,8 +17,9 @@ export class AuthPromptComponent implements OnInit {
   ngOnInit(): void {
     // Subscribe to router events to detect route changes
     this.router.events.subscribe(() => {
-      // If the current URL is /auth, make the prompt invisible
-      this.isVisible = !(this.router.url === '/auth');
+      const userIsAuthenticated = sessionStorage.getItem('authToken');
+      // If the current URL is /auth or the user has already signed in, make the prompt invisible
+      this.isVisible = !userIsAuthenticated && !(this.router.url === '/auth');
     });
   }
 

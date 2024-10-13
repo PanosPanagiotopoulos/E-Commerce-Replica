@@ -11,6 +11,9 @@ namespace E_Commerce_Application_API.Mappers
             CreateMap<UserDTO, User>()
             .ForMember(dest => dest.RegisteredDate, opt => opt.MapFrom(src => DateTime.UtcNow))
             .ReverseMap();
+            CreateMap<RUserDTO, User>()
+            .ForMember(dest => dest.RegisteredDate, opt => opt.MapFrom(src => DateTime.UtcNow))
+            .ReverseMap();
         }
 
     }

@@ -41,10 +41,18 @@
 
       <!-- Fullname input field for registration -->
       <input
-        placeholder="Fullname"
+        placeholder="Firstname"
         class="input"
         type="text"
-        [(ngModel)]="user.fullname"
+        [(ngModel)]="user.firstname"
+        [ngModelOptions]="{ standalone: true }"
+      />
+
+      <input
+        placeholder="Lastname"
+        class="input"
+        type="text"
+        [(ngModel)]="user.lastname"
         [ngModelOptions]="{ standalone: true }"
       />
 
@@ -64,6 +72,7 @@
         type="password"
         [(ngModel)]="user.password"
         [ngModelOptions]="{ standalone: true }"
+        [ngClass]="{ 'is-invalid': passwordMismatch }"
       />
 
       <!-- Confirm password input field for registration -->
@@ -72,6 +81,16 @@
         class="input"
         type="password"
         [(ngModel)]="confirmPassword"
+        [ngModelOptions]="{ standalone: true }"
+        [ngClass]="{ 'is-invalid': passwordMismatch }"
+      />
+
+      <!-- Phonenumber input field for registration -->
+      <input
+        placeholder="Phonenumber"
+        class="input"
+        type="text"
+        [(ngModel)]="user.phonenumber"
         [ngModelOptions]="{ standalone: true }"
       />
 

@@ -27,7 +27,7 @@
     <div class="cart-item" *ngFor="let item of cartItems">
       <!-- Item icon with product image -->
       <div class="item-icon">
-        <img [src]="item.product.url[0]" alt="{{ item.product.title }}" />
+        <img [src]="item.product.imageURLS[0]" alt="{{ item.product.title }}" />
       </div>
 
       <!-- Details of the cart item -->

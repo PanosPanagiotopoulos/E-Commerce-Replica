@@ -4,6 +4,9 @@ import {
   DoCheck,
   Input,
   KeyValueDiffers,
+  SimpleChange,
+  SimpleChanges,
+  OnChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductCardComponent } from '../product-card/product-card.component';
@@ -18,46 +21,27 @@ import { ProductService } from '../../services/product-service';
   templateUrl: './products-list-page.component.html',
   styleUrl: './products-list-page.component.scss',
 })
-export class ProductsListPageComponent implements OnInit, DoCheck {
+export class ProductsListPageComponent implements OnInit, OnChanges {
   products: Product[] | null = [];
   productsOriginal: Product[] | null = [];
-  categories: Set<string> = new Set();
+  categories: string[] = [];
   fadeIn = false;
 
-  private differ: any;
-
-  constructor(
-    private differs: KeyValueDiffers,
-    private productService: ProductService
-  ) {
-    // Initialize the differ for products array
-    this.differ = this.differs.find({}).create();
-  }
-
-  async ngOnInit() {
-    this.categories = new Set([
-      'All',
-      'Shoes',
-      'Trousers',
-      'Shirts',
-      'Pants',
-      'Hats',
-      'T-Shirts',
-      'Socks',
-      'Jeans',
-    ]);
-
+  constructor(private productService: ProductService) {}
+  ngOnInit() {
     this.productService.currentProductsList$.subscribe((products) => {
       this.products = products;
       this.productsOriginal = products;
+      this.categories = [
+        ...new Set(products.map((product) => product.category)),
+      ];
     });
 
     this.triggerFadeIn();
   }
 
-  ngDoCheck(): void {
-    const changes = this.differ.diff(this.products);
-    if (changes) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['products']) {
       this.triggerFadeIn();
     }
   }

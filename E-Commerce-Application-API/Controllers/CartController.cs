@@ -26,9 +26,6 @@ namespace E_Commerce_Application_API.Controllers
             this.ProductRepository = productRepository;
         }
 
-        /**
-         * 
-         */
         /// <summary>
         /// Function to get users cart data.
         /// Does not need parameters since we have the users id from the JWT token.
@@ -59,6 +56,7 @@ namespace E_Commerce_Application_API.Controllers
                 // Return internal server error on any non checked exception
                 return RequestHandlerTool.HandleInternalServerError(e, "GET", "/api/Cart", "Error retrieving the user's id from authorisation");
             }
+
             // Retrieve the user's cart data
             try
             {

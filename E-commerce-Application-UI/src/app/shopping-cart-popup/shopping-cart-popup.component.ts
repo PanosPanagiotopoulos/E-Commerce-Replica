@@ -50,13 +50,14 @@ export class ShoppingCartPopupComponent implements OnInit, AfterViewInit {
       this.cartItems = cartItems;
     });
 
-    this.cartService.getCartData();
-    try {
-      // Fetch the cart items of the user from the server
-      // await this.cartService.getCartData();
-    } catch (error) {
-      const axiosError = error as AxiosError<CartItem[]>;
-      console.error(axiosError);
+    if (sessionStorage.getItem('authToken')) {
+      try {
+        // Fetch the cart items of the user from the server
+        await this.cartService.getCartData();
+      } catch (error) {
+        const axiosError = error as AxiosError<CartItem[]>;
+        console.error(axiosError);
+      }
     }
   }
 
@@ -119,7 +120,15 @@ export class ShoppingCartPopupComponent implements OnInit, AfterViewInit {
    */
   async removeItem(item: CartItem) {
     try {
+      item.quantity--;
+      if (!item.quantity) {
+        this.cartItems = this.cartItems.filter(
+          (cartItem) => cartItem.product.id != item.product.id
+        );
+      }
+
       await this.cartService.removeCartItem(item);
+      await this.cartService.getCartData();
     } catch (error) {
       const axiosError = error as AxiosError<string>;
       console.error(axiosError);
@@ -132,8 +141,9 @@ export class ShoppingCartPopupComponent implements OnInit, AfterViewInit {
   }
 
   adjustPopupPosition(): void {
-    const cartButtonPosition =
-      document.getElementById('cart-button-nav')!.getBoundingClientRect();
+    const cartButtonPosition = document
+      .getElementById('cart-button-nav')!
+      .getBoundingClientRect();
     const popup = this.cartPopup.nativeElement;
 
     if (popup && cartButtonPosition) {

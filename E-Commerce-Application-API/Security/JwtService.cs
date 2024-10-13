@@ -26,27 +26,29 @@ namespace E_Commerce_Application_API.Security
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
-        public string GenerateJwtToken(int userId)
+        public string GenerateJwtToken(int userId, string email, string role)
         {
-            // Create JWT token
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]);
-            var tokenDescriptor = new SecurityTokenDescriptor
+            var claims = new List<Claim>
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-                }),
-                Expires = DateTime.UtcNow.AddHours(1),
-                Issuer = Configuration["Jwt:Issuer"],
-                Audience = Configuration["Jwt:Audience"],
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, email)
             };
+            claims.Add(new Claim(ClaimTypes.Role, role));
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
+            var token = new JwtSecurityToken(
+                issuer: Configuration["Jwt:Issuer"],
+                audience: Configuration["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(1),
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
 
 
         /// <summary>

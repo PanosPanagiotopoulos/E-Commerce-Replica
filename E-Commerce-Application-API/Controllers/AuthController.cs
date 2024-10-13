@@ -32,8 +32,8 @@ namespace E_Commerce_Application_API.Controllers
         /// </summary>
         /// <param name="credentials">The credentials of the user to be authenticated.</param>
         /// <returns></returns>
-        [HttpPost("/login")]
-        [ProducesResponseType(200, Type = typeof(string))]
+        [HttpPost("login")]
+        [ProducesResponseType(200, Type = typeof(AuthResponseDTO))]
         [ProducesResponseType(400, Type = typeof(ValidationProblemDetails))]
         [ProducesResponseType(401, Type = typeof(string))]
         public async Task<IActionResult> Login([FromBody] LoginDTO credentials)
@@ -56,8 +56,11 @@ namespace E_Commerce_Application_API.Controllers
                 return Ok(new { Token = existingToken });
             }
 
+            var role = user.Email == "admin@gmail.com" ? "Admin" : "User";
+
+
             // If no valid token exists, generate a new JWT token
-            var newToken = JwtService.GenerateJwtToken(user.Id);
+            var newToken = JwtService.GenerateJwtToken(user.Id, user.Email, role);
 
             // Store the token in the cache with expiration matching the token's expiration
             var cacheEntryOptions = new MemoryCacheEntryOptions()
@@ -67,12 +70,16 @@ namespace E_Commerce_Application_API.Controllers
 
             Cache.Set($"UserToken_{user.Id}", newToken, cacheEntryOptions);
 
-            return Ok(newToken);
+            return Ok(new AuthResponseDTO
+            {
+                Token = newToken,
+                Role = role
+            });
         }
 
 
         [Authorize]
-        [HttpPost("/logout")]
+        [HttpPost("logout")]
         [ProducesResponseType(204)]
         [ProducesResponseType(500, Type = typeof(string))]
         public IActionResult Logout()

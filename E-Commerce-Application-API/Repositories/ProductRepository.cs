@@ -41,7 +41,10 @@ namespace E_Commerce_Application_API.Repositories
         }
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            return await Context.Products.OrderBy(product => product.Id).ToListAsync();
+            return await Context.Products
+                    .AsNoTracking()
+                    .OrderBy(product => product.Id)
+                    .ToListAsync();
         }
 
         public async Task<PagedProductsResDTO> GetProductsPaged(
@@ -54,11 +57,11 @@ namespace E_Commerce_Application_API.Repositories
 
             // Query the products with pagination and sorting
             var query = Context.Products
-                 .AsNoTracking() // Improves read-only performance
-                .Include(p => p.Images)
-                .Include(p => p.PaymentMethods)
-                .ThenInclude(mp => mp.PaymentMethod)
-                .AsQueryable();
+            .AsNoTracking() // Improves read-only performance
+            .Include(p => p.Images)
+            .Include(p => p.PaymentMethods)
+            .ThenInclude(mp => mp.PaymentMethod)
+            .AsQueryable();
 
             if (filters == null)
             {

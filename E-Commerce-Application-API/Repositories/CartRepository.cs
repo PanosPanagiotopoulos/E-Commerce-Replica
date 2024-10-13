@@ -84,7 +84,9 @@ namespace E_Commerce_Application_API.Repositories
         public async Task<bool> AddProductToCart(int cartId, int productId)
         {
             // Check if the product already exists in the cart
-            var cartProduct = Context.CartProducts.Where(cp => cp.CartId == cartId).Where(cp => cp.ProductId == productId).FirstOrDefault();
+            var cartProduct = await Context.CartProducts
+                            .FirstOrDefaultAsync
+                            (cp => cp.CartId == cartId && cp.ProductId == productId);
 
             // If the product does exist, up its quantity
             if (cartProduct != null)

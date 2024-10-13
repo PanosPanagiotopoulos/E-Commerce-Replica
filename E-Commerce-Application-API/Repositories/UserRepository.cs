@@ -78,12 +78,12 @@ namespace E_Commerce_Application_API.Repositories
 
         public async Task<bool> UpdateUser(RUserDTO userData)
         {
-            if (userData.Id.Value == 0)
+            if (userData.Id == 0)
             {
                 throw new ArgumentException("Undefined user id to update");
             }
 
-            User toUpdateUser = await GetUser(userData.Id.Value);
+            User toUpdateUser = await GetUser(userData.Id);
 
             if (toUpdateUser == null)
             {

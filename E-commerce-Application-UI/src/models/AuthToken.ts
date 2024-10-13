@@ -1,3 +1,4 @@
 export interface AuthToken {
-  tokenID: string;
+  token: string;
+  role: string;
 }

@@ -24,12 +24,10 @@ export class CartVisibilityService {
    */
   toggleCartVisibility(): void {
     this.cartVisibleSubject.next(!this.cartVisibleSubject.value);
-    console.log('Current Cart Visibility: ' + this.isCartVisible());
   }
 
   showCart(): void {
     this.cartVisibleSubject.next(true);
-    console.log('Current Cart Visibility: ' + this.isCartVisible());
   }
 
   /**
@@ -39,7 +37,6 @@ export class CartVisibilityService {
    */
   hideCart(): void {
     this.cartVisibleSubject.next(false);
-    console.log('Current Cart Visibility: ' + this.isCartVisible());
   }
 
   isCartVisible(): boolean {

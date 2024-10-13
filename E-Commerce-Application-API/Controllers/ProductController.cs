@@ -1,5 +1,4 @@
-﻿
-using E_Commerce_Application_API.DTOs;
+﻿using E_Commerce_Application_API.DTOs;
 using E_Commerce_Application_API.Interfaces;
 using E_Commerce_Application_API.Mappers;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +19,7 @@ namespace E_Commerce_Application_API.Controllers
             this.Mapper = mapper;
         }
 
-        [HttpGet("/id")]
+        [HttpGet("id")]
         [ProducesResponseType(200, Type = typeof(ProductDTO))]
         [ProducesResponseType(400, Type = typeof(ValidationProblemDetails))]
         [ProducesResponseType(404, Type = typeof(string))]
@@ -51,7 +50,7 @@ namespace E_Commerce_Application_API.Controllers
             }
         }
 
-        [HttpGet("/products")]
+        [HttpGet("products")]
         [ProducesResponseType(200, Type = typeof(PagedProductsResDTO))]
         [ProducesResponseType(400, Type = typeof(ValidationProblemDetails))]
         [ProducesResponseType(500, Type = typeof(string))]

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace E_Commerce_Application_API.DTOs
 {
@@ -6,7 +7,8 @@ namespace E_Commerce_Application_API.DTOs
     {
 
         // We make it nullable since it might be used for updates but not for registrations
-        public int? Id { get; set; }
+        [JsonIgnore]
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Firstname is required.")]
         [StringLength(25, MinimumLength = 2, ErrorMessage = "The field must be between 2 and 25 characters long.")]
